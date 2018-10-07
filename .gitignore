@@ -1,0 +1,13 @@
+*.class
+*.jar
+hs_err_pid*
+build
+bin
+target
+.DS_Store
+/.*
+!.gitignore
+!/gradle/wrapper/gradle-wrapper.jar
+*.iml
+venv
+out
