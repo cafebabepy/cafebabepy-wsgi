@@ -13,9 +13,8 @@ class WSGIServletHelloWSGITest {
 
     @Test
     void helloWSGI() {
-        String expected = "Hello WSGI!!";
-        WebTarget target = client.target("http://localhost:8765")
-                .path("/hello-wsgi");
+        String expected = "Hello WSGI World!!";
+        WebTarget target = client.target("http://localhost:8765");
 
         String actual = target.request().get(String.class);
 

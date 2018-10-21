@@ -40,6 +40,12 @@ gretty {
     httpPort = 8765
     contextPath = '/'
     integrationTestTask = "test"
+    classPath = [
+            "${buildDir}/classes/java/main",
+            "${buildDir}/classes/java/test",
+            "${buildDir}/resources/main",
+            "${buildDir}/resources/test"
+    ]
 }
 
 ext.versions = [
@@ -57,27 +63,16 @@ configurations {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     jcenter()
 }
 
-sourceSets {
-    main.compileClasspath += configurations.providedCompile
-    test.compileClasspath += configurations.providedCompile
-    test.runtimeClasspath += configurations.providedCompile
-
-    main.resources.srcDirs = [python.sourceDir] + sourceSets.main.resources.srcDirs
-    main.java.outputDir = file("$buildDir/classes")
-    main.resources.outputDir = file("$buildDir/classes")
-
-    test.java.srcDirs = [python.testSourceDir] + sourceSets.test.java.srcDirs
-    test.resources.srcDirs = [python.testSourceDir] + sourceSets.test.resources.srcDirs
-    test.java.outputDir = file("$buildDir/classes")
-    test.resources.outputDir = file("$buildDir/classes")
-}
-
-test.workingDir = file("$buildDir/classes")
+sourceSets.main.resources.srcDirs = [python.sourceDir] + sourceSets.main.resources.srcDirs
+sourceSets.test.resources.srcDirs = [python.testSourceDir] + sourceSets.test.resources.srcDirs
 
 dependencies {
+    compile group: 'org.cafebabepy', name: 'cafebabepy', version: '1-3.6.2'
+
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 
     testCompile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.27'
